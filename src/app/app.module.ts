@@ -3,18 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WelcomeComponent } from './modules/components/welcome/welcome.component';
-import { HeaderComponent } from './modules/components/header/header.component';
+import { WebsideModule } from './modules/webside/webside.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
-    HeaderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    WebsideModule
   ],
   providers: [],
   bootstrap: [AppComponent]
