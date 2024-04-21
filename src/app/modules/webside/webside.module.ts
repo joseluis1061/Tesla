@@ -5,12 +5,14 @@ import { WebsideRoutingModule } from './webside-routing.module';
 import { LandingComponent } from './pages/landing/landing.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { WelcomeComponent } from '../components/welcome/welcome.component';
+import { ModelcarComponent } from '../components/modelcar/modelcar.component';
 
 @NgModule({
   declarations: [
     LandingComponent,
     HeaderComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ModelcarComponent
   ],
   imports: [
     CommonModule,
