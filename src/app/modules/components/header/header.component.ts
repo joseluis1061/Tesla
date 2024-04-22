@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,11 +6,16 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class HeaderComponent implements AfterViewInit{
   @ViewChild('header', {static: false}) header!: ElementRef;
+  @ViewChild('btnMenu', {static: false}) btnMenu!: ElementRef;
 
   optionIntersectionObserver = {
     root: null,
     threshhold: 1,
     rootMargin: '0px'
+  }
+  constructor(
+    private renderer: Renderer2
+  ) {
   }
 
   ngAfterViewInit(): void {
@@ -37,7 +42,16 @@ export class HeaderComponent implements AfterViewInit{
       if (entry.isIntersecting) {
         const color = entry.target.getAttribute("data-header-color");
         this.header.nativeElement.style.color = color;
-        //console.log('El elemento está en la vista', color);
+        const bgColor = entry.target.getAttribute("data-menuBtn-bg");
+        let rgbColor = this.hexToRgb(bgColor);
+
+        if(bgColor === 'black'){
+          this.renderer.setStyle(this.btnMenu.nativeElement, 'background', 'rgba(0,0,0,0.2)');
+        }else{
+          this.renderer.setStyle(this.btnMenu.nativeElement, 'background', bgColor);
+        }
+
+
       }
       // else {
       //   console.log('El elemento está fuera de la vista');
@@ -45,25 +59,15 @@ export class HeaderComponent implements AfterViewInit{
     });
   }
 
-
-  /*
-  observerScroll(){
-    const obs = new IntersectionObserver( entries => {
-      entries.forEach( entry => {
-        const { isIntersecting } = entry;
-        if(isIntersecting){
-          const color = entry.target.getAttribute("data-header-color");
-          this.header.nativeElement.style.color = color
-        }
-      })
-    }, this.optionIntersectionObserver)
-
-
-    const sections = document.querySelectorAll("section");
-    sections.forEach( section => {
-      obs.observe(section)
-    })
+  hexToRgb(hex: string) {
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
   }
-  */
+
+
 
 }
