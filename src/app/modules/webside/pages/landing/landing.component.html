@@ -4,20 +4,12 @@
   <div class="snap-start">
     <app-welcome></app-welcome>
   </div>
-  <div class="snap-start">
-    <app-modelcar></app-modelcar>
-  </div>
-  <div class="snap-start">
-    <app-modelcar></app-modelcar>
-  </div>
-  <div class="snap-start">
-    <app-modelcar></app-modelcar>
-  </div>
-  <div class="snap-start">
-    <app-modelcar></app-modelcar>
-  </div>
-  <div class="snap-start">
-    <app-modelcar></app-modelcar>
-  </div>
-</div>
+  <div class="snap-start" *ngFor="let car of modelsCar">
+    <app-modelcar
+      [title]="car.title"
+      [coverImg]="car.coverImg"
 
+    ></app-modelcar>
+  </div>
+
+</div>
