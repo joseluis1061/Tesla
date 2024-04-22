@@ -6,6 +6,8 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { WelcomeComponent } from '../components/welcome/welcome.component';
 import { ModelcarComponent } from '../components/modelcar/modelcar.component';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { DialogModule } from '@angular/cdk/dialog';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ModelcarComponent } from '../components/modelcar/modelcar.component';
   ],
   imports: [
     CommonModule,
-    WebsideRoutingModule
+    WebsideRoutingModule,
+    OverlayModule,
+    DialogModule
   ],
   exports: [
     LandingComponent,

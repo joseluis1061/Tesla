@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-
+import {Dialog, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
@@ -8,15 +8,18 @@ export class HeaderComponent implements AfterViewInit{
   @ViewChild('header', {static: false}) header!: ElementRef;
   @ViewChild('btnMenu', {static: false}) btnMenu!: ElementRef;
 
+  isOpen = false;
+
   optionIntersectionObserver = {
     root: null,
     threshhold: 1,
     rootMargin: '0px'
   }
   constructor(
-    private renderer: Renderer2
-  ) {
-  }
+    private renderer: Renderer2,
+    public dialog: Dialog
+  ) {}
+
 
   ngAfterViewInit(): void {
     this.createObserver();
@@ -41,17 +44,13 @@ export class HeaderComponent implements AfterViewInit{
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
         const color = entry.target.getAttribute("data-header-color");
-        this.header.nativeElement.style.color = color;
+        this.renderer.setStyle(this.header.nativeElement, 'color', color);
         const bgColor = entry.target.getAttribute("data-menuBtn-bg");
-        let rgbColor = this.hexToRgb(bgColor);
-
         if(bgColor === 'black'){
           this.renderer.setStyle(this.btnMenu.nativeElement, 'background', 'rgba(0,0,0,0.2)');
         }else{
           this.renderer.setStyle(this.btnMenu.nativeElement, 'background', bgColor);
         }
-
-
       }
       // else {
       //   console.log('El elemento está fuera de la vista');
@@ -59,15 +58,13 @@ export class HeaderComponent implements AfterViewInit{
     });
   }
 
-  hexToRgb(hex: string) {
-    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
+  openDialog() {
+    // this.dialog.open(CdkDialogDataExampleDialog, {
+    //   minWidth: '300px',
+    //   data: {
+    //     animal: 'panda',
+    //   },
+    // });
   }
-
-
 
 }
