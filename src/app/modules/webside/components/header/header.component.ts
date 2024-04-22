@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import {Dialog, DIALOG_DATA, DialogModule} from '@angular/cdk/dialog';
+import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
@@ -59,12 +60,16 @@ export class HeaderComponent implements AfterViewInit{
   }
 
   openDialog() {
-    // this.dialog.open(CdkDialogDataExampleDialog, {
-    //   minWidth: '300px',
-    //   data: {
-    //     animal: 'panda',
-    //   },
-    // });
+    const dialogRef = this.dialog.open(MenuMobileComponent, {
+      minWidth: '300px',
+      maxWidth : '50%',
+      disableClose: true,
+      autoFocus: false,
+      data: {}
+    });
+    dialogRef.closed.subscribe(output => {
+      console.log(output);
+    })
   }
 
 }
